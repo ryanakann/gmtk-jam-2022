@@ -6,15 +6,15 @@ export var move_speed = 5
 export var fall_acceleration = 75
 
 func _physics_process(delta):
-	velocity.y -= fall_acceleration * delta
-	velocity = move_and_slide(velocity, Vector3.UP)	
+	var input = get_input()
+	var target_vel = Vector3(input.x,velocity.y-fall_acceleration*delta,input.z)
+	velocity = move_and_slide(target_vel, Vector3.UP)
 
-func _get_input():
+func get_input():
 	var horizontal = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var vertical = Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
-	var move_direction = Vector3(horizontal, velocity.y, vertical)
-	print(move_direction)
-	velocity = move_direction.normalized() * move_speed
+	var vertical = Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
+	var move_direction = Vector3(horizontal, 0, vertical)
+	return move_direction.normalized() * move_speed
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,4 +23,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	_get_input()
+	pass
