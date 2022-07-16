@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.990281
+height = 2.05979
+
+[node name="Scene" type="Spatial"]
+
+[node name="Player" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.62529, 0 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="Player"]
+
+[node name="CSGCylinder" type="CSGCylinder" parent="Player/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+height = 2.0
+sides = 16
+
+[node name="CSGSphereTop" type="CSGSphere" parent="Player/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+radial_segments = 16
+rings = 16
+
+[node name="CSGSphereBot" type="CSGSphere" parent="Player/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+radial_segments = 16
+rings = 16
+
+[node name="RigidBody" type="RigidBody" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Player/RigidBody"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="Floor" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="CSGBox" type="CSGBox" parent="Floor"]
+width = 32.0
+depth = 32.0
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20, 8, 0 )
