@@ -9,7 +9,6 @@ export var jump_power = 20
 onready var ground_ray = get_node("RayCast")
 
 func calculate_velocity_y(jump, delta):
-	print(ground_ray.get_collider())
 	if (jump > 0 and ground_ray.is_colliding()):
 		return jump_power
 	else:
@@ -18,7 +17,6 @@ func calculate_velocity_y(jump, delta):
 func _physics_process(delta):
 	var input = get_input()
 	var target_y = calculate_velocity_y(input.y, delta)
-	
 	var target_vel = Vector3(input.x, target_y, input.z)
 	velocity = move_and_slide(target_vel, Vector3.UP)
 
